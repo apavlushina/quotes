@@ -8,12 +8,22 @@ export default class QuoteSearcher extends React.Component {
     search: ""
   };
 
+  makeUnique = quotesArray => {
+    return quotesArray.reduce((unique, next) => {
+      if (!unique.some(obj => obj.quoteText === next.quoteText)) {
+        unique.push(next);
+      }
+      return unique;
+    }, []);
+  };
+
   componentDidMount(keyword = "tree") {
     fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
       .then(res => res.json())
       .then(response => {
+        console.log(response);
         this.setState({
-          quotes: response.results,
+          quotes: this.makeUnique(response.results),
           fetching: false
         });
       })
