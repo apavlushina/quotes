@@ -30,6 +30,7 @@ export default class QuoteSearcher extends React.Component {
           quotes: this.makeUnique(response.results),
           fetching: false
         });
+        this.countLikes();
       })
       .catch(console.error);
   }
@@ -41,6 +42,7 @@ export default class QuoteSearcher extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.componentDidMount(this.state.search);
+    this.countLikes();
     this.setState({ [event.target.name]: "" });
   };
 
