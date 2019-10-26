@@ -27,11 +27,7 @@ export default class QuoteSearcher extends React.Component {
           {this.state.fetching && "Loading..."}
           {!this.state.fetching &&
             this.state.quotes.map(quote => {
-              return (
-                <li key={quote._id}>
-                  <Quote {...quote} />
-                </li>
-              );
+              return <Quote key={quote._id} {...quote} />;
             })}
         </ul>
       </div>

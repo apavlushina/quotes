@@ -20,6 +20,10 @@
   color: white;
 }
 
-.App-link {
+.like {
   color: #09d3ac;
+}
+
+.dislike {
+  color: rebeccapurple;
 }
