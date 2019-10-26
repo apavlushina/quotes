@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 //import Button from "@material-ui/core/Button";
 
 export default class Quote extends React.Component {
@@ -26,7 +27,11 @@ export default class Quote extends React.Component {
     return (
       <div>
         <p className="quote">{this.props.quoteText}</p>
-        <p>By: {this.props.quoteAuthor}</p>
+        <p>
+          <Link to={`/oneauthor/${this.props.quoteAuthor}`}>
+            By: {this.props.quoteAuthor}
+          </Link>
+        </p>
         <button
           variant="contained"
           color="primary"

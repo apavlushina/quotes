@@ -79,7 +79,7 @@ export default class QuoteSearcher extends React.Component {
         </div>
         <br />
         <ul>
-          {this.state.fetching && "Loading..."}
+          {(this.state.fetching && "Loading...", console.log("loading"))}
           {!this.state.fetching &&
             this.state.quotes.map(quote => {
               return (
