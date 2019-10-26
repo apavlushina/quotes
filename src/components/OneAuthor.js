@@ -14,13 +14,11 @@ export default class OneAuthor extends React.Component {
       )}`
     )
       .then(res => res.json())
-      .then(data =>
-        this.updateQuotes(data.results.map(quote => quote.quoteText))
-      )
+      .then(data => this.makeUnique(data.results.map(quote => quote.quoteText)))
       .catch(console.error);
   }
 
-  updateQuotes(quotes) {
+  makeUnique(quotes) {
     this.setState({
       quotes: Array.from(new Set(quotes))
     });
