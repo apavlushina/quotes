@@ -5,7 +5,9 @@ export default class QuoteSearcher extends React.Component {
   state = {
     quotes: [],
     fetching: true,
-    search: ""
+    search: "",
+    countLikes: 0,
+    countDislikes: 0
   };
 
   makeUnique = quotesArray => {
@@ -21,7 +23,9 @@ export default class QuoteSearcher extends React.Component {
     fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
       .then(res => res.json())
       .then(response => {
-        console.log(response);
+        if (response.count === 0) {
+          alert("There are no quotes with this keyword, sorry");
+        }
         this.setState({
           quotes: this.makeUnique(response.results),
           fetching: false
@@ -38,6 +42,13 @@ export default class QuoteSearcher extends React.Component {
     event.preventDefault();
     this.componentDidMount(this.state.search);
     this.setState({ [event.target.name]: "" });
+  };
+
+  countLikes = () => {
+    const likes = document.getElementsByClassName("like").length;
+    const dislikes = document.getElementsByClassName("dislike").length;
+    this.setState({ countLikes: likes });
+    this.setState({ countDislikes: dislikes });
   };
 
   render() {
@@ -59,12 +70,19 @@ export default class QuoteSearcher extends React.Component {
             onClick={this.handleSearch}
           />
         </form>
-
+        <br />
+        <div>
+          <p>In this list you like {this.state.countLikes} quotes</p>
+          <p>In this list you dislike {this.state.countDislikes} quotes</p>
+        </div>
+        <br />
         <ul>
           {this.state.fetching && "Loading..."}
           {!this.state.fetching &&
             this.state.quotes.map(quote => {
-              return <Quote key={quote._id} {...quote} />;
+              return (
+                <Quote key={quote._id} {...quote} counter={this.countLikes} />
+              );
             })}
         </ul>
       </div>

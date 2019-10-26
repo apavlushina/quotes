@@ -8,18 +8,16 @@ export default class Quote extends React.Component {
 
   handleLike = evt => {
     if (evt.target.name === "like") {
-      //   console.log("it was like", this.props._id);
       evt.target.previousSibling.previousSibling.classList.remove("dislike");
       evt.target.previousSibling.previousSibling.classList.add("like");
+      this.setState({ likes: "like" });
+      this.props.counter();
     }
     if (evt.target.name === "dislike") {
-      console.log("it was dislike", this.props._id);
-      evt.target.previousSibling.previousSibling.previousSibling.classList.remove(
-        "like"
-      );
-      evt.target.previousSibling.previousSibling.previousSibling.classList.add(
-        "dislike"
-      );
+      evt.target.parentNode.firstChild.classList.remove("like");
+      evt.target.parentNode.firstChild.classList.add("dislike");
+      this.setState({ likes: "dislike" });
+      this.props.counter();
     }
     return;
   };
